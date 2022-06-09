@@ -106,3 +106,27 @@ void write_account(){
     outFile.write(reinterpret_cast<char *>(&ac), sizeof(account));
     outFile.close();
 }
+
+void display_sp(int n){
+    account ac;
+    bool flag = false;
+    ifstream inFile;
+    inFile.open("account.dart", ios::binary);
+    if(!inFile){
+        cout<<"File couldn't be opened !! press any key....";
+        return;
+    }
+
+    cout<<"Balance Details"<<endl;
+    while (inFile.read(reinterpret_cast<char *>(&ac),sizeof(account)))
+    {
+        if(ac.racno()==n){
+            ac.show_account();
+            flag = true;
+        }
+    }
+    inFile.close();
+    if(flag == false){
+        cout<<"Account Number Doesn't Exist"<<endl;
+    }
+}
