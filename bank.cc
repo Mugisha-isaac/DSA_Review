@@ -202,5 +202,56 @@ void display_all(){
     while(inFile.read(reinterpret_cast<char *>(&ac),sizeof(account))){
         ac.report();
     }
-    inFile.close()
+    inFile.close();
+}
+
+
+void deposit_withdraw(int n, int option){
+    int amount;
+    bool found = false;
+    account ac;
+    fstream File;
+    File.open("account.dat", ios::binary | ios::in | ios::out);
+    if(!File){
+        cout<<"File could not be open !! Press any Key...";
+		return;
+    }
+
+    while(!File.eof() &&found == false){
+        File.read(reinterpret_cast<char *>(&ac),sizeof(account));
+        if(ac.racno() ==n){
+            ac.show_account();
+            if(option ==1){
+                cout<<"TO DEPOSIT AMOUNT";
+                cout<<"-----------------"<<endl;
+                cout<<"Enter amount to be deposited"<<endl;
+                cin>>amount;
+                ac.dep(amount);
+            }
+
+            if(option ==2){
+                cout<<"TO WITHDRAW AMOUNT"<<endl;
+                cout<<"-------------------"<<endl;
+                cout<<"Enter amount to withdraw"<<endl;
+                cin>>amount;
+                int bal = ac.redeposit() - amount;
+                if((bal<500 && ac.rettype()=='S') || (bal<1000 && ac.rettype()=='C')){
+                    cout<<">Insufficient Balance"<<endl;
+                }
+                else{
+                    ac.draw(amount);
+                }
+            }
+            int pos = (-1)*static_cast<int>(sizeof(account));
+            File.seekp(pos, ios::cur);
+            File.write(reinterpret_cast<char *>(&ac), sizeof(account));
+            cout<<"Record Updated";
+            found = true;
+        }
+    }
+
+    File.close();
+    if(found == false){
+        cout<<"Record Not Found"<<endl;
+    }
 }
