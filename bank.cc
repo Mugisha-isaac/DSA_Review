@@ -101,7 +101,7 @@ int main(){
 void write_account(){
     account ac;
     ofstream outFile;
-    outFile.open("account.dart", ios::binary | ios::app);
+    outFile.open("account.dat", ios::binary | ios::app);
     ac.create_account();
     outFile.write(reinterpret_cast<char *>(&ac), sizeof(account));
     outFile.close();
@@ -111,7 +111,7 @@ void display_sp(int n){
     account ac;
     bool flag = false;
     ifstream inFile;
-    inFile.open("account.dart", ios::binary);
+    inFile.open("account.dat", ios::binary);
     if(!inFile){
         cout<<"File couldn't be opened !! press any key....";
         return;
@@ -135,7 +135,7 @@ void modify_account(int n){
     bool found = false;
     account ac;
     fstream File;
-    File.open("account.dart",ios::binary | ios::in | ios::out);
+    File.open("account.dat",ios::binary | ios::in | ios::out);
     if(!File){
         cout<<"File couldn't be opened !! press any key....";
         return;
@@ -157,4 +157,29 @@ void modify_account(int n){
     if(found == false){
         cout<<"Record Not Found"<<endl;
     }
+}
+
+void delete_account(int n){
+    account ac;
+    ifstream inFile;
+    ofstream outFile;
+    
+    inFile.open("account.dat",ios::binary);
+    if(!inFile){
+        cout<<"File couldn't be opened !! press any key....";
+        return;
+    }
+    outFile.open("Temp.dat", ios::binary);
+    inFile.seekg(0,ios::beg);
+    while(inFile.read(reinterpret_cast<char *>(&ac),sizeof(account))){
+        if(ac.racno() != n){
+            outFile.write(reinterpret_cast<char *>(&ac),sizeof(account));
+        }
+    }
+
+    inFile.close();
+    outFile.close();
+    remove("account.dat");
+    rename("Temp.dat","account.dat");
+    cout<<"Record Deleted"<<endl;
 }
