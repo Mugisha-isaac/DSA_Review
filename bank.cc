@@ -92,3 +92,17 @@ void display_all();
 void deposit_all();
 void deposit_withdraw(int,int);
 void intro();
+
+
+int main(){
+
+}
+
+void write_account(){
+    account ac;
+    ofstream outFile;
+    outFile.open("account.dart", ios::binary | ios::app);
+    ac.create_account();
+    outFile.write(reinterpret_cast<char *>(&ac), sizeof(account));
+    outFile.close();
+}
