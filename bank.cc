@@ -255,3 +255,12 @@ void deposit_withdraw(int n, int option){
         cout<<"Record Not Found"<<endl;
     }
 }
+
+
+void intro(){
+    cout<<"Bank Management System"<<endl;
+    cout<<"----------------------"<<endl;
+    cout<<"Made By: your name";
+    cout<<"SCHOOL: your school name";
+    cin.get();
+}
