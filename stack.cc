@@ -54,7 +54,6 @@ void pop(st *s){
 void printStack(st *s){
     cout<<"printing stack"<<endl;
     cout<<"--------------"<<endl;
-
     for(int i=0;i<size;i++){
         cout<<s->items[i]<<" ";
     }
