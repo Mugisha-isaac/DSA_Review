@@ -1,78 +1,88 @@
-#include<iostream>
-#include<stdlib.h>
+// Stack implementation in C++
+
+#include <stdlib.h>
+#include <iostream>
 
 using namespace std;
 
-#define MAx 10
+#define MAX 10
 int size = 0;
 
-
-// creating a stack
-struct Stack{
-    int items[MAx];
-    int top;
+// Creating a stack
+struct stack {
+  int items[MAX];
+  int top;
 };
+typedef struct stack st;
 
-typedef struct Stack st;
-
-void createStack(st *s){
-    s->top = -1;
+void createEmptyStack(st *s) {
+  s->top = -1;
 }
 
-int isEmpty(st *s){
-    if(s->top == -1){
-        return -1;
-    }
+// Check if the stack is full
+int isfull(st *s) {
+  if (s->top == MAX - 1)
+    return 1;
+  else
     return 0;
 }
 
-int isFull(st *s){
-    if(s->top == MAx -1){
-       return 1;
-    }
-    return -1;
+// Check if the stack is empty
+int isempty(st *s) {
+  if (s->top == -1)
+    return 1;
+  else
+    return 0;
 }
 
-void push(st *s, int item){
-    int status =  isFull(s);
-    if(status == 1){
-        cout<<"stack overflow"<<endl;
-    }
-    int top = s->top++;
-    s->items[top];
-    size++;
+// Add elements into stack
+void push(st *s, int newitem) {
+  if (isfull(s)) {
+    cout << "STACK FULL";
+  } else {
+    s->top++;
+    s->items[s->top] = newitem;
+  }
+  size++;
 }
 
-void pop(st *s){
-    if(isEmpty(s)==-1){
-        cout<<"stack underflow"<<endl;
-    }
+// Remove element from stack
+void pop(st *s) {
+  if (isempty(s)) {
+    cout << "\n STACK EMPTY \n";
+  } else {
+    cout << "Item popped= " << s->items[s->top];
     s->top--;
-    size--;
+  }
+  size--;
+  cout << endl;
 }
 
-void printStack(st *s){
-    cout<<"printing stack"<<endl;
-    cout<<"--------------"<<endl;
-    for(int i=0;i<size;i++){
-        cout<<s->items[i]<<" ";
-    }
+// Print elements of stack
+void printStack(st *s) {
+  printf("Stack: ");
+  for (int i = 0; i < size; i++) {
+    cout << s->items[i] << " ";
+  }
+  cout << endl;
 }
 
+// Driver code
+int main() {
+  int ch;
+  st *s = (st *)malloc(sizeof(st));
 
-int main(){
-    int ch;
-    st *s = (st *) malloc(sizeof(st));
-    createStack(s);
-    push(s,1); 
-    push(s,2); 
-    push(s,3); 
-    push(s,4); 
-    push(s,5); 
-    printStack(s);
-    pop(s);
-    printStack(s);
+  createEmptyStack(s);
 
-    return 0;
+  push(s, 1);
+  push(s, 2);
+  push(s, 3);
+  push(s, 4);
+
+  printStack(s);
+
+  pop(s);
+
+  cout << "\nAfter popping out\n";
+  printStack(s);
 }
-
