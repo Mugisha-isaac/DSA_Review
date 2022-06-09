@@ -130,3 +130,31 @@ void display_sp(int n){
         cout<<"Account Number Doesn't Exist"<<endl;
     }
 }
+
+void modify_account(int n){
+    bool found = false;
+    account ac;
+    fstream File;
+    File.open("account.dart",ios::binary | ios::in | ios::out);
+    if(!File){
+        cout<<"File couldn't be opened !! press any key....";
+        return;
+    }
+    while(!File.eof() && found == false){
+        File.read(reinterpret_cast<char *>(&ac), sizeof(account));
+        if(ac.racno()==n){
+            ac.show_account();
+            cout<<"Enter New Details Of Account "<<endl;
+            ac.modify();
+            int pos = (-1)*static_cast<int>(sizeof(account));
+            File.seekp(pos,ios::cur);
+            File.write(reinterpret_cast<char *>(&ac), sizeof(account));
+            cout<<"Record Updated!"<<endl;
+            found = true;
+        }
+    }
+    File.close();
+    if(found == false){
+        cout<<"Record Not Found"<<endl;
+    }
+}

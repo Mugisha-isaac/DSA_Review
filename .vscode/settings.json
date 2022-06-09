@@ -4,6 +4,7 @@
         "racno"
     ],
     "files.associations": {
-        "fstream": "cpp"
+        "fstream": "cpp",
+        "iostream": "cpp"
     }
 }
