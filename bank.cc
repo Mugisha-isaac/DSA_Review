@@ -14,7 +14,7 @@ class account{
     public: 
 
     void create_account();
-    void show_account();
+    void show_account() const;
     void modify();
     void dep(int);
     void draw(int);
@@ -35,7 +35,29 @@ void account::create_account(){
     type = toupper(type);
     cout<<"Enter initial amount (>=500 for saving and >=1000 for current)"<<endl;
     cin>>deposit;
+    cout<<"Account Created"<<endl;
 }
+
+
+void account::show_account() const {
+   cout<<"Account No: "<<acno<<endl;
+   cout<<"Account Holder: "<<name<<endl;
+   cout<<"Type Of Account "<<type<<endl;
+   cout<<"Balance Amount: "<<deposit<<endl;
+}
+
+
+void account::modify(){
+    cout<<"Account No: "<<acno<<endl;
+    cout<<"Modify Account Holder Name"<<endl;
+    cin>>name;
+    cout<<"Modify Account Type "<<endl;
+    cin>>type;
+    type = toupper(type);
+    cout<<"Modify Balance Account "<<endl;
+    cin>>deposit;
+}
+
 
 
 void write_account();
