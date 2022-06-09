@@ -1,6 +1,7 @@
 #include<iostream>
 #include<fstream>
 #include<cctype>
+#include<iomanip>
 
 
 using namespace std;
@@ -58,6 +59,17 @@ void account::modify(){
     cin>>deposit;
 }
 
+void account::dep(int x){
+    deposit = deposit + x;
+}
+
+void account::draw(int x){
+    deposit = deposit -x;
+}
+
+void account::report() const{
+    cout<<acno<<setw(10)<<" "<<name<<setw(10)<<" "<<type<<setw(6)<<deposit<<endl;    
+}
 
 
 void write_account();
