@@ -71,6 +71,18 @@ void account::report() const{
     cout<<acno<<setw(10)<<" "<<name<<setw(10)<<" "<<type<<setw(6)<<deposit<<endl;    
 }
 
+int account::racno()const{
+    return acno;
+}
+
+int account::redeposit() const {
+    return deposit;
+}
+
+char account::rettype() const {
+    return type;
+}
+
 
 void write_account();
 void display_sp(int);
